@@ -1,6 +1,6 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgbase=linux
+pkgbase=linux-minimal
 pkgver=6.5.6.arch2
 pkgrel=1
 pkgdesc='Linux'
@@ -74,6 +74,8 @@ prepare() {
   cp ../config .config
   make olddefconfig
   diff -u ../config .config || :
+
+  make LSMOD=$HOME/.config/modprobed.db localmodconfig
 
   make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
